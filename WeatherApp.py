@@ -1,7 +1,7 @@
 #Weather APP
 import requests
 from data import data
-from config import apikey
+from config import apikey, lat, lon
 
 
 class Weather:
@@ -10,7 +10,7 @@ class Weather:
 		self.lat = lat
 		self.lon = lon
 
-	def HourlyForecast(self):
+	def minutelyForecase(self):
 
 		url = "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/minutely"
 
@@ -25,7 +25,70 @@ class Weather:
 
 		return response.text
 
+	def hourlyForecast(self):
+
+		url = "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/hourly"
+
+		querystring = {"lat":self.lat, "lon": self.lon}
+
+		headers = {
+			"X-RapidAPI-Key": apikey,
+			"X-RapidAPI-Host": "weatherbit-v1-mashape.p.rapidapi.com"
+		}
+
+		response = requests.request("GET", url, headers=headers, params=querystring)
+
+		return response.text
+
+	def dailyForecast(self):
+
+		url = "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily"
+
+		querystring = {"lat":self.lat, "lon": self.lon}
+
+		headers = {
+			"X-RapidAPI-Key": apikey,
+			"X-RapidAPI-Host": "weatherbit-v1-mashape.p.rapidapi.com"
+		}
+
+		response = requests.request("GET", url, headers=headers, params=querystring)
+
+		return response.text
+
+	def threeHourlyForecast(self):
+
+		url = "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly"
+
+		querystring = {"lat":self.lat, "lon": self.lon}
+
+		headers = {
+			"X-RapidAPI-Key": apikey,
+			"X-RapidAPI-Host": "weatherbit-v1-mashape.p.rapidapi.com"
+		}
+
+		response = requests.request("GET", url, headers=headers, params=querystring)
+
+		return response.text
+
+	def currentForecast(self):
+
+		url = "https://weatherbit-v1-mashape.p.rapidapi.com/current"
+
+		querystring = {"lat":self.lat, "lon": self.lon}
+
+		headers = {
+			"X-RapidAPI-Key": apikey,
+			"X-RapidAPI-Host": "weatherbit-v1-mashape.p.rapidapi.com"
+		}
+
+		response = requests.request("GET", url, headers=headers, params=querystring)
+
+		return response.text
+
 
 print(f"API Key is: {apikey}")
-weather = Weather(apikey = apikey, lat = 36.153980, lon = -95.992775)
-print(weather.HourlyForecast())
+weather = Weather(apikey = apikey, lat = lat, lon = lon)
+print(weather.currentForecast())
+
+
+
